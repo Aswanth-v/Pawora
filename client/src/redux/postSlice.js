@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dispatch } from "./store";
+
 
 const initialState={
-    post:{},
+    posts:{},
 }
 
 const postSlice=createSlice({
@@ -10,7 +10,7 @@ const postSlice=createSlice({
     initialState,
     reducers:{
         getPost(state,action){
-            state.post =action.payload
+            state.posts =action.payload
         }
     }
 })
