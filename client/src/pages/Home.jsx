@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import {CardProfile,CustomButton,FriendsCard, Loading, TextInput, TopBar } from '../components';
-import {suggest,requests } from '../assets/data';
+import {CardProfile,CustomButton,FriendsCard, Loading, TextInput, TopBar,PostCard } from '../components';
+import {suggest,requests,posts } from '../assets/data';
 import { NoProfile } from '../assets';
 import { Link } from 'react-router-dom';
 import { BsPersonFillAdd,BsFiletypeGif } from 'react-icons/bs';
@@ -14,6 +14,9 @@ const Home = () => {
     const[errMsg, setErrMsg] =useState("")
     const [file,setFile]  =useState(null)
     const [posting,setPosting] =useState(false)
+    const [loading,setLoading] =useState(false)
+
+
     const [suggestedFriends,setSuggestedFriends] =useState(suggest)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handlePostsubmit =  async(data)=>{}
@@ -127,6 +130,23 @@ const Home = () => {
 
                             </div>
                         </form>
+
+                        {
+                          loading ? (<Loading/>) : posts?.length > 0 ? (
+                            posts?.map((post)=>(
+                                <PostCard key={post?._id} post={post}
+                                
+                                user={user}
+                                delete={()=>{}}
+                                likePost={()=>{}}
+                                />
+                            ))
+                          ) : (
+                             <div className="flex w-full h-full items-center justify-center">
+                           <p className="text-lg text-acent-2">No Post yet </p>
+                            </div>
+                          )  
+                        }
                 </div>
                 {/* Right */}
                 <div className='hidde w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto'>
