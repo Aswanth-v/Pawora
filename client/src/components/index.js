@@ -6,6 +6,7 @@ import CardProfile from "./CardProfile";
 import FriendsCard from './FriendsCard'
 import PostCard from "./PostCard"
 import Donation from "./Donation"
+import EditProfile from "./EditProfile";
 export {
-    Loading,TextInput,CustomButton,TopBar,CardProfile,FriendsCard,PostCard,Donation
+    Loading,TextInput,CustomButton,TopBar,CardProfile,FriendsCard,PostCard,Donation,EditProfile
 }
