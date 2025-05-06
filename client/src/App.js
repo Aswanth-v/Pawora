@@ -1,6 +1,6 @@
 import {Outlet,Navigate,Route,Routes,useLocation} from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import {Home ,Login,ResetPassword,Profile,Register} from './pages'
+import {Home ,Login,ResetPassword,Profile,Register,DonationPg} from './pages'
 
 
 function Layout(){
@@ -29,6 +29,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/reset-password' element={<ResetPassword/>}/>
+        <Route path='/DonationPg' element={<DonationPg/>}/>
       
 
       

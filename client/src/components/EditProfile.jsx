@@ -26,7 +26,7 @@ const EditProfile = () => {
   const onSubmit = async (data) => {};
 
   const handleClose = () => {
-    dispatch(UpdateProfile(false));
+    dispatch(UpdateProfile(false));   
   };
   const handleSelect = (e) => {
     setPicture(e.target.files[0]);
