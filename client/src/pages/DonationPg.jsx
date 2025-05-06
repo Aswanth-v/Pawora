@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const DonationPg=()=> {
+const DonationPg = () => {
   return (
-    <div>DonationPg</div>
-  )
-}
+    <div className='home w-full px-0 lg:px:10  2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden text-ascent-2'>
+      DonationPg
+    </div>
+  );
+};
 
-export default DonationPg
+export default DonationPg;
