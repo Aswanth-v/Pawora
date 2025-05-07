@@ -7,7 +7,8 @@ dotenv.config()
 const { AUTH_EMAIL, AUTH_PASSWORD, APP_URL } = process.env;
 
 let transporter=nodemailer.createTransport({
-    host:'smtp-mail.outlook.com',
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
 
     auth:{
         user:AUTH_EMAIL,
