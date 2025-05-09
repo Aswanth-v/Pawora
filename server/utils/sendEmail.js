@@ -7,8 +7,7 @@ dotenv.config()
 const { AUTH_EMAIL, AUTH_PASSWORD, APP_URL } = process.env;
 
 let transporter=nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
+ service: 'gmail',
 
     auth:{
         user:AUTH_EMAIL, //mailtrap username insted of hotmail
@@ -19,8 +18,8 @@ export const sendVerificationEmail = async (user, res) => {
   const { _id, email, lastName } = user;
 
   const token = _id + uuidv4();
+ const link = APP_URL + "users/verify/" + _id + "/" + token;
 
-  const link = APP_URL + "users/verify/" + _id + "/" + token;
 
 const mailOptions ={
     from:AUTH_EMAIL,
@@ -82,7 +81,9 @@ export const resetPasswordLink = async (user, res) => {
 const { _id, email } = user;
 
 const token = _id + uuidv4();
-const link = APP_URL + "users/reset-password/" + _id + "/" + token;
+ const link = APP_URL + "users/verify/" + _id + "/" + token;
+
+
 
 //   mail options
 const mailOptions = {

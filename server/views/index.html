@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Verified</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000000; /* Black background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: white; /* White text to contrast with black background */
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background for the card */
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .card h1 {
+      color: #8B4FB3; /* Purple text for the header */
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+
+    .card a {
+      text-decoration: none;
+      background-color: #8B4FB3; /* Purple button */
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .card a:hover {
+      background-color: #703c93; /* Darker purple on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>✅ Email Verified!</h1>
+    <p>Your email has been successfully verified. You can now log in to your account.</p>
+    <a href="http://localhost:3000/login">Go to Login</a>
+  </div>
+</body>
+</html>
