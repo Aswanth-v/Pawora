@@ -11,8 +11,8 @@ let transporter=nodemailer.createTransport({
   port: 2525,
 
     auth:{
-        user:AUTH_EMAIL,
-        pass:AUTH_PASSWORD
+        user:AUTH_EMAIL, //mailtrap username insted of hotmail
+        pass:AUTH_PASSWORD //mailtrap password insted of hotmail
     }
 })
 export const sendVerificationEmail = async (user, res) => {
