@@ -7,26 +7,29 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000000; /* Black background */
+      background-color: #000000;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      color: white; /* White text to contrast with black background */
+      color: white;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background for the card */
+      background: rgba(255, 255, 255, 0.1);
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.5);
       text-align: center;
       max-width: 400px;
     }
+    .icon{
+      font-size: 64px;
+       margin-bottom: 20px;
+    }
 
     .card h1 {
-      color: #8B4FB3; /* Purple text for the header */
       margin-bottom: 16px;
     }
 
@@ -37,7 +40,7 @@
 
     .card a {
       text-decoration: none;
-      background-color: #8B4FB3; /* Purple button */
+      background-color: #8B4FB3;
       color: white;
       padding: 12px 24px;
       border-radius: 6px;
@@ -46,15 +49,55 @@
     }
 
     .card a:hover {
-      background-color: #703c93; /* Darker purple on hover */
+      background-color: #703c93;
+    }
+
+    .success {
+      color: #4CAF50;
+    }
+
+    .error {
+      color: #FF4C4C;
+    }
+
+    .info {
+      color: #FFA500;
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>✅ Email Verified!</h1>
-    <p>Your email has been successfully verified. You can now log in to your account.</p>
-    <a href="http://localhost:3000/login">Go to Login</a>
+    <div class="icon">
+      <span id="status-icon" class=""></span>
+    </div>
+    <div id="status-msg">
+        <a href="http://localhost:3000/login" id="btn" class="">Go to Login</a>
+    </div>
+  
   </div>
+
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const status = urlparams.get("status");
+  const message = urlparams.get("message");
+
+  const iconElement = document.getElementById("status-icon");
+  const messageElement = document.getElementById("status-message");
+
+  if (status === "success") {
+    iconElement.textContent = "✅";
+    iconElement.className = "success";
+    messageElement.textContent = decodeURIComponent(message) || "Your email has been successfully verified.";
+  } else if (status === "error") {
+    iconElement.textContent = "❌";
+    iconElement.className = "error";
+    messageElement.textContent = decodeURIComponent(message) || "Email verification failed. Please try again.";
+  } else {
+    iconElement.textContent = "❓";
+    iconElement.className = "info";
+    messageElement.textContent = "Invalid verification status.";
+  }
+</script>
+
 </body>
 </html>
