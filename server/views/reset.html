@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password</title>
+</head>
+<body>
+
+  <h1>Reset Your Password</h1>
+
+  <form id="resetForm">
+    <input type="hidden" name="userId" id="userIdInput" value="">
+
+    <label for="password">New Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+    <button type="submit">Reset Password</button>
+  </form>
+
+  <script>
+    // Wait for the DOM to fully load before running the script
+    document.addEventListener("DOMContentLoaded", function () {
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get("id");
+
+      // Log to confirm the userId value
+      console.log("UserId from URL:", userId);
+
+      if (userId) {
+        document.getElementById("userIdInput").value = userId;
+      } else {
+        alert("User ID is missing in the URL");
+      }
+
+      // Add event listener for form submission
+      document.getElementById("resetForm").addEventListener("submit", async function (e) {
+        e.preventDefault(); // Prevent form from submitting the default way
+
+        const userId = document.getElementById("userIdInput").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Log userId and password values to confirm they are correct
+        console.log("UserId from input:", userId);
+        console.log("Password:", password);
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return; // Stop further execution if passwords don't match
+        }
+
+        // Sending a POST request to reset the password
+        const response = await fetch("/users/reset-password", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId, password }) // Send userId and password in the body
+        });
+
+        const data = await response.json();
+        console.log("Response from server:", data);
+
+        if (data.ok) {
+          alert("Password reset successful!");
+          window.location.href = "/auth/login"; // Redirect to login page on success
+        } else {
+          alert("Error: " + data.message); // Show error message if something goes wrong
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

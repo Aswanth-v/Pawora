@@ -4,6 +4,8 @@ import Users from "../models/userModel.js";
 import { compareString } from "../utils/index.js";
 import passwordReset from "../models/passwordReset.js";
 import { resetPasswordLink } from "../utils/sendEmail.js";
+import { hashString } from "../utils/index.js";
+import bcrypt from 'bcryptjs';
 
 export const verifyEmail = async (req, res) => {
   const { userId, token } = req.params;
@@ -118,25 +120,26 @@ export const resetPassword =async (req,res)=>{
   }
 };
   
-export const changePassword =async(req,res)=>{
-  try{
-     const { userId, password } = req.body;
+export const changePassword = async (req, res, next) => {
+  try {
+    const { userId, password } = req.body;
 
     const hashedpassword = await hashString(password);
 
     const user = await Users.findByIdAndUpdate(
       { _id: userId },
       { password: hashedpassword }
-    ); 
-      if (user) {
-      await passwordReset.findOneAndDelete({ userId });
+    );
+
+    if (user) {
+      await PasswordReset.findOneAndDelete({ userId });
 
       res.status(200).json({
         ok: true,
       });
     }
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(404).json({ message: error.message });
   }
-}
+};

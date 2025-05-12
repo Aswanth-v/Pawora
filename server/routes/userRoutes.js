@@ -6,7 +6,7 @@ const router = express.Router();
 const __dirname = path.resolve(path.dirname(""));
 
 router.get("/verify/:userId/:token", verifyEmail);
-//password reaser
+//password reaset
 router.post('/request-passwordreset',requestPasswordReset)
 router.get("/reset-password/:userId/:token", resetPassword);
 router.post('/reset-password',changePassword)
@@ -28,6 +28,12 @@ router.get("/verified", (req, res) => {
 
 
 router.get("/resetpassword", (req, res) => {
-  res.sendFile(path.join(__dirname, "./views", "index.html"));
+  const type = req.query.type;
+  const id = req.query.id;
+  if (type === 'reset' && id) {
+    // Send the reset form if 'reset' type and id are present
+    res.sendFile(path.join(__dirname, "./views", "reset.html"));
+  }
 });
+
   export default router; 
