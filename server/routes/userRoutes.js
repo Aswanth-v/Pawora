@@ -8,32 +8,15 @@ const __dirname = path.resolve(path.dirname(""));
 router.get("/verify/:userId/:token", verifyEmail);
 //password reaset
 router.post('/request-passwordreset',requestPasswordReset)
-router.get("/reset-password/:userId/:token", resetPassword);
-router.post('/reset-password',changePassword)
-
-
+router.get("/reset-password/:userId/:token",resetPassword);
+router.post("/reset-password", changePassword);
 
 router.get("/verified", (req, res) => {
-  const status = req.query.status;
- 
-  
-  if (status === 'success') {
-    res.sendFile(path.join(__dirname, "./views", "success.html"));
-  } else if (status === 'error') {
-    res.status(404).sendFile(path.join(__dirname, "./views", "error.html"));
-  } else {
-    res.status(400).send("Invalid status parameter.");
-  }
+  res.sendFile(path.join(__dirname, "./views/build", "index.html"));
 });
-
 
 router.get("/resetpassword", (req, res) => {
-  const type = req.query.type;
-  const id = req.query.id;
-  if (type === 'reset' && id) {
-    // Send the reset form if 'reset' type and id are present
-    res.sendFile(path.join(__dirname, "./views", "reset.html"));
-  }
+  res.sendFile(path.join(__dirname, "./views/build", "index.html"));
 });
 
-  export default router; 
+  export default router;  

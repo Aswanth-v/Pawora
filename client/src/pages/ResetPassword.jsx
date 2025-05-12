@@ -24,7 +24,7 @@ const ResetPassword=()=> {
         <div className="bg-primary w-full md:w-1/3 2xl:w-1/4 px-6 py-8 shadow-md rounded-lg">
           <p className="text-ascent-1 text-lg font-semibold">Email Address</p>
           <span className="text-sm text-ascent-2">Enter email address used during registration </span>
-          <form onSubmit={handleSubmit(onsubmit)} className='py-5 flex flex-col gap-5'>
+          <form onSubmit={handleSubmit(onSubmit)} className='py-5 flex flex-col gap-5'>
 
 
             <TextInput

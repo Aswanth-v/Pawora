@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import Verification from "../models/emailVerification.js";
 import Users from "../models/userModel.js";
 import { compareString } from "../utils/index.js";
-import passwordReset from "../models/passwordReset.js";
+import PasswordReset from "../models/PasswordReset.js";
 import { resetPasswordLink } from "../utils/sendEmail.js";
 import { hashString } from "../utils/index.js";
-import bcrypt from 'bcryptjs';
+
 
 export const verifyEmail = async (req, res) => {
   const { userId, token } = req.params;
@@ -61,7 +61,7 @@ export const requestPasswordReset = async (req, res) => {
       });
     }
 
-    const existingRequest = await passwordReset.findOne({ email });
+    const existingRequest = await PasswordReset.findOne({ email });
     if (existingRequest) {
       if (existingRequest.expiresAt > Date.now()) {
         return res.status(201).json({
@@ -69,19 +69,19 @@ export const requestPasswordReset = async (req, res) => {
           message: "Reset password link has already been sent tp your email.",
         });
       }
-      await passwordReset.findOneAndDelete({ email });
+      await PasswordReset.findOneAndDelete({ email });
     }
     await resetPasswordLink(user, res);
-
-} catch (error) {
-    console.log( error);
-   res.redirect(404).json({message :error.message})
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
   }
-}
+};
 
-export const resetPassword =async (req,res)=>{
-  const {userId,token} =req.params
-    try {
+export const resetPassword = async (req, res) => {
+  const { userId, token } = req.params;
+
+  try {
     // find record
     const user = await Users.findById(userId);
 
@@ -90,7 +90,7 @@ export const resetPassword =async (req,res)=>{
       res.redirect(`/users/resetpassword?status=error&message=${message}`);
     }
 
-    const resetPassword = await passwordReset.findOne({ userId });
+    const resetPassword = await PasswordReset.findOne({ userId });
 
     if (!resetPassword) {
       const message = "Invalid password reset link. Try again";
@@ -119,7 +119,7 @@ export const resetPassword =async (req,res)=>{
     res.status(404).json({ message: error.message });
   }
 };
-  
+
 export const changePassword = async (req, res, next) => {
   try {
     const { userId, password } = req.body;
