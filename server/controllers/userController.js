@@ -172,10 +172,22 @@ export const changePassword = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
-    const { userId } = req.body.user;
     const { id } = req.params;
+    const { userId } = req.body?.user || {};
 
-    const user = await Users.findById(id ?? userId).populate({
+    console.log("URL param ID:", id);
+    console.log("Body userId:", userId);
+
+    const finalId = id || userId;
+
+    if (!finalId) {
+      return res.status(400).json({
+        message: "User ID is required",
+        success: false,
+      });
+    }
+
+    const user = await Users.findById(finalId).populate({
       path: "friends",
       select: "-password",
     });
@@ -194,7 +206,7 @@ export const getUser = async (req, res, next) => {
       user: user,
     });
   } catch (error) {
-    console.log(error);
+    console.log("Error in getUser:", error);
     res.status(500).json({
       message: "auth error",
       success: false,
@@ -202,6 +214,7 @@ export const getUser = async (req, res, next) => {
     });
   }
 };
+
 
 export const updateUser = async (req, res, next) => {
   try {
