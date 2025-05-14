@@ -14,7 +14,7 @@ router.post("/reset-password", changePassword);
 //user Routes
 router.post('/get-user', userAuth, getUser);
 router.post('/get-user/:id', userAuth, getUser);
-router.put('/update-user',userAuth,updateUser)
+router.put("/update-user", userAuth, updateUser);
 
 // friend request
 router.post("/friend-request", userAuth, friendRequest);
