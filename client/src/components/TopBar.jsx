@@ -11,6 +11,7 @@ import { BsMoon, BsSunFill } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Logout } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import Donation from './Donation';
 
 const TopBar = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -55,7 +56,7 @@ const TopBar = () => {
           containerStyle="bg-[#B57EDC] text-white px-6 py-2.5 mt-2 rounded-r-full"
         />
       </form>
-
+<Donation />
       {/* ICONS */}
       <div className="flex gap-4 items-center text-ascent-1 text-md md:text-xl">
         <button onClick={() => handleTheme()}>

@@ -1,62 +1,59 @@
 import React from 'react';
+import puppyFace from '../assets/puppy-face.jpg';
 
 const DonationPg = () => {
   return (
-    <div className='home w-full px-5 lg:px-10 2xl:px-40 bg-secondary text-white h-screen overflow-y-auto'>
-      {/* Hero Section */}
-      <section className='flex flex-col lg:flex-row items-center gap-10 py-10'>
-        <div className='flex-1'>
-          <h1 className='text-4xl font-bold mb-4 text-[#8B4FB3] '>CHILD NUTRITION DEFICIENCY</h1>
-          <p className='mb-6 text-lg text-gray-300 text-ascent-2'>
-            Child nutrition deficiency has been caused by severe problems in different African countries.
-            Children are not getting enough nutrition to grow their body and minds.
-          </p>
-          <div className='flex gap-4'>
-            <button className='bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded'>
-              DONATE FOR THE CAUSE
-            </button>
-            <button className='border border-white py-2 px-6 rounded hover:bg-white hover:text-black'>
-              LEARN MORE
-            </button>
+    <div className='w-full h-screen flex overflow-y-auto'>
+
+      {/* Left side: Content with black background */}
+      <div className='w-1/2 h-full bg-secondary text-white px-5 lg:px-10 2xl:px-40 overflow-y-auto'
+       style={{ backgroundColor: 'black' }}>
+        {/* Hero Section */}
+        <section className='flex flex-col gap-10 py-10'>
+          <div>
+            <p className='mb-6 text-lg text-gray-300 text-ascent-2 mt-0.5'>
+              Every day, countless stray animals wander the streets, abandoned, hungry, and exposed to danger. These innocent lives face harsh conditions — battling extreme weather, starvation, injuries, and disease — with no one to care for them. Often the result of neglect, overpopulation, and a lack of public awareness, the stray animal crisis is a growing concern that cannot be ignored. It is not just the responsibility of animal welfare groups; it is a cause that calls for all of us to step forward. By supporting rescue initiatives, adopting instead of buying, and spreading awareness, we can create a world where every animal is safe, loved, and protected. Together, we can be their voice.
+            </p>
+            <div className='flex gap-4'>
+            <button
+  className="bg-yellow-500 hover:bg-green-600 text-black font-bold py-2 px-6 rounded"
+   style={{ backgroundColor: 'transparent', ':hover': { backgroundColor: 'green' } }}
+  onClick={() => {
+    console.log("donation");
+  }}
+>
+  DONATE FOR THE CAUSE
+</button>
+
+              <button className='border border-white py-2 px-6 rounded hover:bg-white hover:text-black'>
+                LEARN MORE
+              </button>
+            </div>
           </div>
-        </div>
-        <div className='flex-1'>
-          <img
-            src='https://i.pinimg.com/736x/ff/25/a6/ff25a6e70a261415ca91b167348e1124.jpg' // Replace with actual image path
-            alt='Child'
-            className='rounded-lg w-full object-cover'
-          />
-        </div>
-      </section>
+        </section>
 
-      {/* Progress Section */}
-      <section className='bg-yellow-500 text-black p-6 rounded-lg mb-10'>
-        <div className='flex items-center justify-between mb-2 text-lg font-semibold'>
-          <span>Collection: $8000</span>
-          <span>Goal: $10,000</span>
-        </div>
-        <div className='w-full bg-gray-200 rounded-full h-3'>
-          <div className='bg-black h-3 rounded-full' style={{ width: '80%' }}></div>
-        </div>
-      </section>
+        {/* Progress Section */}
+        <section className='bg-yellow-500 text-black p-6 rounded-lg mb-10'>
+          <div className='flex items-center justify-between mb-2 text-lg font-semibold'>
+            <span>Collection: $8000</span>
+          
+          </div>
+          <div className='w-full bg-gray-200 rounded-full h-3'>
+            <div className='bg-black h-3 rounded-full' style={{ width: '80%' }}></div>
+          </div>
+        </section>
 
-      {/* Additional Cause Card */}
-      <section className='flex items-center justify-between bg-gray-900 p-4 rounded-lg'>
-        <div>
-          <h2 className='text-xl font-bold mb-1'>HOME FACILITY FOR OLD AGE PEOPLE</h2>
-          <a href='#' className='text-yellow-400 font-medium hover:underline'>
-            READ MORE
-          </a>
-        </div>
-        <img
-          src='/path-to-elder-image.jpg' // Replace with actual image path
-          alt='Old age home'
-          className='w-24 h-24 object-cover rounded'
-        />
-      </section>
+        {/* Additional Cause Card */}
+
+      </div>
+
+      {/* Right side: Background image */}
+      <div
+        className='w-1/2 h-full bg-cover bg-center'
+        style={{ backgroundImage: `url(${puppyFace})` }}
+      />
     </div>
   );
 };
 
 export default DonationPg;
-

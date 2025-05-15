@@ -321,7 +321,7 @@ const PostCard=({post,user,deletePost,likePost}) =>{
     )} 
 
     <div>
-      <Donation />
+      
     </div>
 
 
