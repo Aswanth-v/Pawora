@@ -428,3 +428,13 @@ export const suggestedFriends = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+
+export const donation =async(req,res)=>{
+  try{
+    
+  }catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
+  }
+}
