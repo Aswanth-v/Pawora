@@ -5,5 +5,5 @@ const router = express.Router();
 
 // Define POST /donation route that calls the donation controller
 router.post('/donation', donation);
-
+// Endpoint to get the total donated amount
 export default router;

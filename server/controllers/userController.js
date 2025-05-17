@@ -7,6 +7,7 @@ import { resetPasswordLink } from "../utils/sendEmail.js";
 import dotenv from "dotenv";
 import FriendRequest from "../models/friendRequest.js";
 import Razorpay from 'razorpay';
+import Transaction from '../models/transaction.js'; // ✅ Correct import
 
 
 export const verifyEmail = async (req, res) => {
@@ -259,6 +260,31 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
+export const suggestedFriends = async (req, res) => {
+  try {
+    const { userId } = req.body.user;
+
+    let queryObject = {};
+
+    queryObject._id = { $ne: userId };
+
+    queryObject.friends = { $nin: userId };
+
+    let queryResult = Users.find(queryObject)
+      .limit(15)
+      .select("firstName lastName profileUrl profession -password");
+
+    const suggestedFriends = await queryResult;
+
+    res.status(200).json({
+      success: true,
+      data: suggestedFriends,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
+  }
+};
 export const friendRequest = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
@@ -406,38 +432,10 @@ export const profileViews = async (req, res, next) => {
   }
 };
 
-export const suggestedFriends = async (req, res) => {
-  try {
-    const { userId } = req.body.user;
-
-    let queryObject = {};
-
-    queryObject._id = { $ne: userId };
-
-    queryObject.friends = { $nin: userId };
-
-    let queryResult = Users.find(queryObject)
-      .limit(15)
-      .select("firstName lastName profileUrl profession -password");
-
-    const suggestedFriends = await queryResult;
-
-    res.status(200).json({
-      success: true,
-      data: suggestedFriends,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(404).json({ message: error.message });
-  }
-};
-
-
-
 export const donation = async (req, res) => {
   const razorpay = new Razorpay({
-    key_id: process.env.KEY_ID,         // ✅ Corrected spelling
-    key_secret: process.env.RZ_SECRET   // ✅ Corrected key name
+    key_id: process.env.KEY_ID,
+    key_secret: process.env.RZ_SECRET,
   });
 
   try {
@@ -445,8 +443,19 @@ export const donation = async (req, res) => {
     const order = await razorpay.orders.create(options);
 
     if (!order) {
-      return res.status(500).send("Error creating order");
+      return res.status(500).send('Error creating order');
     }
+
+    // Save order details in DB
+    const newTransaction= new Transaction({
+      amount: options.amount,
+      currency: options.currency,
+      receipt: options.receipt,
+      orderId: order.id,
+      status: order.status,
+    });
+
+    await newTransaction.save();
 
     res.json(order);
   } catch (error) {
@@ -454,3 +463,4 @@ export const donation = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
