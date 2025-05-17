@@ -4,7 +4,10 @@ import Users from "../models/userModel.js";
 import { compareString, createJWT, hashString } from "../utils/index.js";
 import PasswordReset from "../models/PasswordReset.js";
 import { resetPasswordLink } from "../utils/sendEmail.js";
+import dotenv from "dotenv";
 import FriendRequest from "../models/friendRequest.js";
+import Razorpay from 'razorpay';
+
 
 export const verifyEmail = async (req, res) => {
   const { userId, token } = req.params;
@@ -430,11 +433,24 @@ export const suggestedFriends = async (req, res) => {
 };
 
 
-export const donation =async(req,res)=>{
-  try{
-    
-  }catch (error) {
-    console.log(error);
-    res.status(404).json({ message: error.message });
+
+export const donation = async (req, res) => {
+  const razorpay = new Razorpay({
+    key_id: process.env.KEY_ID,         // ✅ Corrected spelling
+    key_secret: process.env.RZ_SECRET   // ✅ Corrected key name
+  });
+
+  try {
+    const options = req.body;
+    const order = await razorpay.orders.create(options);
+
+    if (!order) {
+      return res.status(500).send("Error creating order");
+    }
+
+    res.json(order);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
-}
+};
