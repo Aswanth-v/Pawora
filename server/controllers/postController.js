@@ -28,7 +28,6 @@ export const createPost = async (req, res, next) => {
     res.status(404).json({ message: error.message });
   }
 };
-
 export const getPosts = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
@@ -79,6 +78,7 @@ export const getPosts = async (req, res, next) => {
     res.status(404).json({ message: error.message });
   }
 };
+
 
 export const getPost = async (req, res, next) => {
   try {
