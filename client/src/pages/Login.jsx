@@ -8,22 +8,44 @@ import {AiOutlineInteraction} from 'react-icons/ai'
 import {ImConnection} from 'react-icons/im'
 import { TextInput,Loading,CustomButton } from '../components'
 import { BgImage,NoProfile } from '../assets'
-
-
+import { UserLogin } from '../redux/userSlice'
+import { apiRequest } from "../utils";
 function Login() {
+    const [errMsg ,setErrMsg]=useState('');
+  const [isSubmitting, setIsSubmitting]=useState(false)
+  const dispatch= useDispatch() 
   const {
     register,handleSubmit,formState:{errors},
   }=useForm({
     mode:"onChange"
   })
 
-  const onSubmit = async(data)=>{
-    
-  }
+    const onSubmit = async (data) => {
+    setIsSubmitting(true);
 
-  const [errMsg ,setErrMsg]=useState('');
-  const [isSubmitting, setIsSubmitting]=useState(false)
-  const dispatch= useDispatch() 
+    try {
+      const res = await apiRequest({
+          url:"/auth/login",
+          data:data,
+          method:"POST"
+      })
+      if(res?.status === "failed"){
+        setErrMsg(res);
+      }else{
+        setErrMsg("");
+        const newData = {token:res?.token,...res?.user};
+        dispatch(UserLogin(newData));
+        window.location.replace("/")
+      }
+      setIsSubmitting(false);
+    
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    }
+  };
+
+
 
   return (
     <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>
@@ -36,7 +58,8 @@ function Login() {
         <div className='p-2 bg-[#967BB6] rounded text-white'>
         <TbDog size={30 } />
         </div>
-        <span className='text-2xl text-[#B57EDC]' font-semibold>
+        <span className='text-2xl text-[#B57EDC] font-semibold'>
+
           Sharefun
         </span>
         </div>
