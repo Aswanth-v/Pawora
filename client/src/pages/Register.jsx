@@ -8,6 +8,7 @@ import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { TextInput, Loading, CustomButton } from "../components";
 import { BgImage, NoProfile } from "../assets";
+import { apiRequest } from "../utils";
 
 function Register() {
   const {
@@ -19,7 +20,31 @@ function Register() {
     mode: "onChange",
   });
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+
+    setIsSubmitting(true)
+      try {
+      const res = await apiRequest({
+        url:"/auth/register",
+        data:data,
+        method:"POST"
+      })
+      console.log(res)
+      if(res?.status === "failed"){
+        setErrMsg(res);
+      }else{
+        setErrMsg(res);
+        setTimeout(()=>{
+          window.location.replace("/login")
+        },5000)
+      }
+      setIsSubmitting(false);
+
+    } catch (error) {
+      console.log(error)
+      setIsSubmitting(false);
+    }
+  };
 
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
