@@ -58,7 +58,7 @@ const ProfileCard = ({ user }) => {
           </div>
           <div className="flex gap-2 items-center text-ascent-2">
             <BsBriefcase className="text-lg text-ascent-1" />
-            <span>{user.profession ?? "Add profession"}</span>
+            <span>{user?.profession ?? "Add profession"}</span>
           </div>
         </div>
 
