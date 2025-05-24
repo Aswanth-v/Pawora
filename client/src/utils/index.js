@@ -14,13 +14,13 @@ export const apiRequest = async ({url,token,data,method})=>{
             method : method || "GET",
             data:data,
             headers:{
-                "contrnt-type":"application/json",
+                "content-type":"application/json",
                 Authorization:token ? `Bearer ${token}`:"",
             }
         })
         return result?.data
     }catch(error){
-        const err =error.resonse.data
+        const err =error.response.data
         console.log(err)
         return {status:err.success, message:err.message}
     }
