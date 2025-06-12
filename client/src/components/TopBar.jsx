@@ -62,10 +62,10 @@ const TopBar = () => {
           styles="w-[18rem] lg:w-[38rem] rounded-l-full py-3"
           register={register("search")}
         />
-        <CustomButton
-          title="Search"
-          type="submit"
-          containerStyles="bg-[#B57EDC] text-white px-6 py-2.5 mt-2 rounded-r-full"
+         <CustomButton
+          title='Search'
+          type='submit'
+          containerStyle='bg-[#967BB6] text-white px-6 py-2.5 mt-2 rounded-r-full'
         />
       </form>
 

@@ -1,25 +1,83 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState,useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import {CardProfile,CustomButton,FriendsCard, Loading, TextInput, TopBar,PostCard, EditProfile } from '../components';
-import {suggest,requests,posts } from '../assets/data';
+import {suggest,requests } from '../assets/data';
 import { NoProfile } from '../assets';
 import { Link } from 'react-router-dom';
 import { BsPersonFillAdd,BsFiletypeGif } from 'react-icons/bs';
 import { BiImage, BiSolidVideo } from 'react-icons/bi';
+import { apiRequest, deletePost, fetchPosts, getUserInfo, handleFileUpload, likePost, sendFriendRequest } from '../utils';
 import { useForm } from 'react-hook-form';
+
 
 const Home = () => {
     const { user,edit } = useSelector((state) => state.user);
+      const { posts } = useSelector(state => state.posts);
     const [friendRequest,setFriendRequest] =useState(requests)
     const[errMsg, setErrMsg] =useState("")
     const [file,setFile]  =useState(null)
     const [posting,setPosting] =useState(false)
     const [loading,setLoading] =useState(false)
 
+    const dispatch = useDispatch()
 
     const [suggestedFriends,setSuggestedFriends] =useState(suggest)
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const handlePostsubmit =  async(data)=>{}
+    const { register,reset, handleSubmit, formState: { errors } } = useForm();
+
+
+   const handlePostSubmit =async(data)=> {
+      console.log("Post submit data:", data); // ✅ check if this prints
+    setPosting(true);
+    setErrMsg("");
+    try {
+      const uri = file && (await handleFileUpload(file));
+       const newData = uri ? {...data, image: uri } : data;
+
+       const res = await apiRequest({
+        url: "/posts/create-post",
+        data: newData,
+        token: user?.token,
+        method: "POST",
+       });
+       if(res?.status === "failed"){
+        setErrMsg(res);
+       }else {
+        reset({
+          description: "",
+        });
+        setFile(null);
+        setErrMsg("");
+        await fetchPost();
+       }
+       setPosting(false);
+       
+    } catch (error) {
+      console.log(error);
+      setPosting(false);
+    }
+  };
+
+  const fetchPost = async()=>{
+        await fetchPosts(user?.token, dispatch);
+
+    setLoading(false);
+  }
+  const handleLikePost = async()=>{}
+  const handleDelete = async()=>{}
+  const fetchFriendRequests = async()=>{}
+  const fetchSuggestedFriends = async()=>{}
+  const handleFriendRequest = async()=>{}
+  const acceptFriendRequest = async()=>{}
+  const getUser = async()=>{}
+
+ useEffect(() => {
+    setLoading(true);
+    getUser();
+    fetchPost();
+    fetchFriendRequests();
+    fetchSuggestedFriends();
+  }, []);
+
 
     return (
       <>
@@ -34,7 +92,7 @@ const Home = () => {
                 {/* Center */}
                 <div className='flex-1 h-full px-4 flex-4 flex-col gap-6 overflow-y-auto rounded-lg'>
                         <form className='bg-primary px-4 rounded-lg'
-                            onSubmit={handleSubmit(handlePostsubmit)}>
+                            onSubmit={handleSubmit(handlePostSubmit)}>
                             <div className='w-full flex items-center gap-2 py-4 border-b border-[#66666645]'>
                             <img 
                                     src={user?.profileUrl ?? NoProfile} 
@@ -123,7 +181,7 @@ const Home = () => {
                                         <CustomButton
                                         type='submit'
                                         title='post'
-                                        containerStyle='bg-[#8B4FB3] ext-white py-1 px-4 rounded-full font-semibold text-sm text-ascent-1'
+                                        containerStyle='bg-[#8B4FB3] text-white py-1 px-4 rounded-full font-semibold text-sm text-ascent-1'
                                         />
                                     )
                                 }
@@ -132,19 +190,21 @@ const Home = () => {
                             </div>
                         </form>
 
-                        {
-                          loading ? (<Loading/>) : posts?.length > 0 ? (
-                            posts?.map((post)=>(
-                                <PostCard key={post?._id} post={post}
-                                
-                                user={user}
-                                delete={()=>{}}
-                                likePost={()=>{}}
-                                />
-                            ))
+                          {loading ? (
+              <Loading />
+            ) : posts?.length > 0 ? (
+              posts?.map((post) => (
+                <PostCard
+                  key={post?._id}
+                  post={post}
+                  user={user}
+                  deletePost={() => {}}
+                  likePost={() => {}}
+                />
+              ))
                           ) : (
                              <div className="flex w-full h-full items-center justify-center">
-                           <p className="text-lg text-acent-2">No Post yet </p>
+                           <p className="text-lg text-ascent-2">No Post yet </p>
                             </div>
                           )  
                         }
