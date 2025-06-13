@@ -62,8 +62,14 @@ const Home = () => {
 
     setLoading(false);
   }
-  const handleLikePost = async()=>{}
-  const handleDelete = async()=>{}
+  const handleLikePost = async(uri)=>{
+    await likePost({uri:uri,token:user?.token})
+    await fetchPost()
+  }
+  const handleDelete = async(id)=>{
+    await deletePost(id,user.token)
+    await fetchPost()
+  }
   const fetchFriendRequests = async()=>{}
   const fetchSuggestedFriends = async()=>{}
   const handleFriendRequest = async()=>{}
@@ -198,8 +204,8 @@ const Home = () => {
                   key={post?._id}
                   post={post}
                   user={user}
-                  deletePost={() => {}}
-                  likePost={() => {}}
+                  deletePost={handleDelete}
+                  likePost={handleLikePost}
                 />
               ))
                           ) : (
