@@ -128,7 +128,10 @@ const PostCard=({post,user,deletePost,likePost}) =>{
     SetCommants(postComments)
     SetLoading(false)
   }
-  const handleLike=async ()=>{}
+  const handleLike=async (uri)=>{
+    await likePost(uri)
+    await getComments(post?._id)
+  }
    return (
      <div className='mb-2 bg-primary p-6 rounded-xl'>
       <div className='flex gap-3 items-center mb-2'>
@@ -187,7 +190,9 @@ const PostCard=({post,user,deletePost,likePost}) =>{
   }
 </div>
     <div className='mt-4 flex justify-between items-center px-3 py-2 text-ascent text-base border-t border-[#66666645]'>
-      <p className='flex gap-2 items-center text-base cursor-pointer text-ascent-2'>
+      <p className='flex gap-2 items-center text-base cursor-pointer text-ascent-2'
+       onClick={() => handleLike("/posts/like/"+ post?._id)}
+      >
 
         {
           post?.likes?.includes(user?._id) ? (<BiSolidLike size={20}  color='#8B4FB3'/>)
