@@ -145,12 +145,12 @@ const Home = () => {
             <TopBar />
             <div className='w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full'>
                 {/* Left */}
-                <div className='hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto'>
+                <div className='hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-4 overflow-y-auto'>
                     <CardProfile user={user} />
                     <FriendsCard friends={user?.friends}/>
                 </div>
                 {/* Center */}
-                <div className='flex-1 h-full px-4 flex-4 flex-col gap-6 overflow-y-auto rounded-lg'>
+                <div className='flex-1 h-full px-4 flex flex-col gap-6 overflow-y-auto rounded-lg'>
                         <form className='bg-primary px-4 rounded-lg'
                             onSubmit={handleSubmit(handlePostSubmit)}>
                             <div className='w-full flex items-center gap-2 py-4 border-b border-[#66666645]'>
@@ -181,7 +181,7 @@ const Home = () => {
                                         {errors.description.message}
                                 </span>
                             )}
-                            <div className='flex items-center justify-between py-4'>
+                            <div className='flex items-center justify-between py-4 '>
                                 <label
                                 htmlFor='imageUploader'
                                 className='flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer'
