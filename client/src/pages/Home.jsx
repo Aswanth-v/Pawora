@@ -1,19 +1,21 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import {CardProfile,CustomButton,FriendsCard, Loading, TextInput, TopBar,PostCard, EditProfile } from '../components';
-import {suggest,requests } from '../assets/data';
+
 import { NoProfile } from '../assets';
 import { Link } from 'react-router-dom';
 import { BsPersonFillAdd,BsFiletypeGif } from 'react-icons/bs';
 import { BiImage, BiSolidVideo } from 'react-icons/bi';
 import { apiRequest, deletePost, fetchPosts, getUserInfo, handleFileUpload, likePost, sendFriendRequest } from '../utils';
 import { useForm } from 'react-hook-form';
+import { UserLogin } from '../redux/userSlice';
 
 
 const Home = () => {
     const { user,edit } = useSelector((state) => state.user);
       const { posts } = useSelector(state => state.posts);
-    const [friendRequest,setFriendRequest] =useState(requests)
+    const [friendRequest,setFriendRequest] =useState([])
+    const [suggestedFriends,setSuggestedFriends] =useState([])
     const[errMsg, setErrMsg] =useState("")
     const [file,setFile]  =useState(null)
     const [posting,setPosting] =useState(false)
@@ -21,7 +23,7 @@ const Home = () => {
 
     const dispatch = useDispatch()
 
-    const [suggestedFriends,setSuggestedFriends] =useState(suggest)
+    
     const { register,reset, handleSubmit, formState: { errors } } = useForm();
 
 
@@ -70,11 +72,63 @@ const Home = () => {
     await deletePost(id,user.token)
     await fetchPost()
   }
-  const fetchFriendRequests = async()=>{}
-  const fetchSuggestedFriends = async()=>{}
-  const handleFriendRequest = async()=>{}
-  const acceptFriendRequest = async()=>{}
-  const getUser = async()=>{}
+  const fetchFriendRequests = async()=>{
+   try{
+    const res=await apiRequest({
+       url:"/users/get-friend-request",
+    token: user?.token,
+    method:"POST"
+    })
+    setFriendRequest(res?.data)
+   }catch(error){
+    console.log(error)
+    
+   }
+
+  }
+
+  const fetchSuggestedFriends = async()=>{
+    try{
+      const res =await apiRequest({
+        url:"/users/suggested-friends",
+        token:user?.token,
+        method:"POST"
+      })
+      
+      setSuggestedFriends(res?.data)
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
+  const handleFriendRequest = async(id)=>{
+    try{
+      const res=await sendFriendRequest(user.token,id)
+      await fetchSuggestedFriends()
+
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
+  const acceptFriendRequest = async(id,status)=>{
+    try{
+      const res=await apiRequest({
+        url:"/users/accept-request",
+        token:user?.token,
+        method:"POST",
+        data:{rid:id,status}
+      })
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
+  const getUser = async()=>{
+    const res=await getUserInfo(user?.token)
+    const newData={token:user?.token, ...res}
+    dispatch(UserLogin(newData))
+  }
 
  useEffect(() => {
     setLoading(true);
@@ -238,11 +292,15 @@ const Home = () => {
                                     </Link>
                                     <div className='flex gap-1'>
                                         <CustomButton title='Accept'
+
+                                        onClick={()=>acceptFriendRequest(_id,"Accepted")}
                                         containerStyle='bg-[#8B4FB3] // This is a reference comment
                                                                         const mainColor = "#B57EDC"; //
 
                                          text-xs text-white px-1.5 py-1 rounded-full'/>
                                         <CustomButton title='Deny'
+                                         onClick={()=>acceptFriendRequest(_id,"Denied")}
+
                                         containerStyle='border border-[#666] text-xs text-white px-1.5 py-1 rounded-full'/>
                                     </div>
                                     </div>
@@ -282,7 +340,7 @@ const Home = () => {
       </Link>
       <div className='flex gap-1'>
         <button className='bg-[#0444a430] text-sm text-white p-1 rounded'
-        onClick={() =>{}}
+        onClick={() =>handleFriendRequest(friend?._id)}
         >
             <BsPersonFillAdd size={20} className='text-[#8B4FB3]' />
         </button>
