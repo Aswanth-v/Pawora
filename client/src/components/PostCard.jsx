@@ -10,7 +10,20 @@ import {MdOutlineDeleteOutline} from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import Donation from './Donation';
 import { postComments } from '../assets/data';
+import { apiRequest } from '../utils';
 
+const getPostComments=async (id)=>{
+  try{
+    const res=await apiRequest({
+      url: `/posts/comments/${id}`,
+      method:"GET"
+    })
+    return res?.data
+  }catch(error){
+    console.log(error);
+    
+  }
+}
 
 const ReplyCard =({reply,user,handleLike})=>{
 return(
@@ -52,8 +65,8 @@ return(
 )
 }
 const CommentForm= ({user,id,replyAt,getComments})=>{
-  const [loading,SetLoading]=useState(false)
-  const [errMsg,SetErrMsg]=useState('')
+  const [loading,setLoading]=useState(false)
+  const [errMsg,setErrMsg]=useState('')
   const {
     register,
     handleSubmit,
@@ -65,7 +78,44 @@ const CommentForm= ({user,id,replyAt,getComments})=>{
   });
 
 
-  const onSubmit =async(data)=>{}
+ // In your React component
+const onSubmit = async (data) => {
+  setLoading(true);
+  setErrMsg("");
+
+  try {
+    const URL = !replyAt ? `/posts/comment/${id}` : `/posts/reply-comment/${id}`;
+    const newData = {
+      comment: data?.comment,
+      from: user?.firstName + " " + user?.lastName,
+      replyAt: replyAt || null,
+    };
+
+    const res = await apiRequest({
+      url: URL,
+      data: newData,
+      token: user?.token,
+      method: "POST",
+    });
+
+    console.log("res from comment POST:", res);
+
+    if (res?.status !== "success") {
+      setErrMsg(res?.message || "Something went wrong");
+    } else {
+      reset({ comment: "" });
+      setErrMsg("");
+      await getComments();
+    }
+
+    setLoading(false);
+  } catch (error) {
+    console.error("onSubmit error:", error);
+    setErrMsg("Unexpected error occurred.");
+    setLoading(false);
+  }
+};
+
   return(
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -123,9 +173,10 @@ const PostCard=({post,user,deletePost,likePost}) =>{
   const [replyCommants,SetReplyCommants]=useState(0)
   const [showComments,SetShowComments]=useState(0)
 
-  const getComments =async ()=>{
+  const getComments =async (id)=>{
     SetReplyCommants(0)
-    SetCommants(postComments)
+    const result=await getPostComments(id)
+    SetCommants(result)
     SetLoading(false)
   }
   const handleLike=async (uri)=>{
@@ -255,7 +306,12 @@ const PostCard=({post,user,deletePost,likePost}) =>{
                 <div className='ml-12'>
                   <p className='text-ascent-2'>{comment?.comment}</p>
                   <div className='mt-2 flex gap-6'>
-                    <p className='flex gap-2 items-center text-base text-ascent-2 cursor-pointer'> 
+                    <p className='flex gap-2 items-center text-base text-ascent-2 cursor-pointer'
+                    
+                    onClick={()=>{
+                      handleLike("/posts/like-comment/"+comment?._id)
+                    }}
+                    > 
                       {''}
                       {comment?.likes?.includes(user?._id)?(
                         <BiSolidLike size={20} color='blue'/>
