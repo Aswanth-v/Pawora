@@ -8,7 +8,7 @@ import {
   PostCard,
   TopBar,
 } from "../components";
-import { posts } from "../assets/data";
+
 
 const Profile = () => {
   const { id } = useParams();
@@ -18,9 +18,16 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState(user);
   const [loading, setLoading] = useState(false);
 
+const uri="/posts/get-user-post/"+id
+
   const handleDelete = () => {};
   const handleLikePost = () => {};
-
+  
+ useEffect(() => {
+    setLoading(true);
+    getUser();
+    getPosts();
+  },[id]);
   return (
     <>
       <div className='home w-full px-0 lg:px:10  2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden'>
