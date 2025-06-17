@@ -270,7 +270,7 @@ const Home = () => {
                         }
                 </div>
                 {/* Right */}
-                <div className='hidde w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto'>
+                <div className='hidden w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto'>
                     {/* Friend request */}
                     <div className='w-full bg-primary shadow-sm rounded-lg px-6 py-5'>
                         <div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
@@ -310,7 +310,7 @@ const Home = () => {
                     </div>
                     {/*Suggested friends */}
                     <div className='w-full bg-primary shadow-sm rounded-lg px-5 py-5'>
-                        <div className='flex items-center justify-between text-lg text-ascent-1 border-b border-[#66666645]'>
+                        <div className='flex items center justify-between text-lg text-ascent-1 border-b border-[#66666645]'>
                             <span>Friend Suggestion</span>
                         </div>
                         <div className='w-full flex flex-col gap-4 pt-4 '>

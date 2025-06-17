@@ -10,7 +10,7 @@ import { BsMoon, BsSunFill } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Logout } from "../redux/userSlice";
 import Donation from "./Donation";
-
+import { fetchPosts } from "../utils";
 const TopBar = () => {
   const { theme } = useSelector((state) => state.theme);
   const { user } = useSelector((state) => state.user);
@@ -32,6 +32,7 @@ const TopBar = () => {
 
   const handleSearch = async (data) => {
     // Your search logic (if any)
+      await fetchPosts(user?.token, dispatch, "", data);
   };
 
   // ✅ Handle logout & redirect
