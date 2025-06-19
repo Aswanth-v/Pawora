@@ -49,7 +49,7 @@ const TopBar = () => {
           <TbDog />
         </div>
         <span className="text-xl md:text-2xl text-[#B57EDC] font-semibold">
-          ShareFun
+          Pawora 
         </span>
       </Link>
 

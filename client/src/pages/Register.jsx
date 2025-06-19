@@ -63,7 +63,7 @@ function Register() {
               <TbDog size={30} />
             </div>
             <span className="text-2xl text-[#B57EDC]" font-semibold>
-              Sharefun
+              Pawora 
             </span>
           </div>
           <p className="text-ascent-1 text-base front-semibold">
