@@ -240,6 +240,9 @@ const PostCard=({post,user,deletePost,likePost}) =>{
 ) : post?.video ? (
   <video
   src={post.video}
+    controls
+  controlsList="nofullscreen nodownload"
+  className="w-full mt-2 rounded-lg"
 />
 ) : null}
 
