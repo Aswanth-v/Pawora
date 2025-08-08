@@ -217,21 +217,7 @@ const Home = () => {
 
 
 
-                                <label
-                                htmlFor='GifUploader'
-                                className='flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer'
-                                >
-                                <input 
-                                type='file'
-                                onChange={(e) =>setFile(e.target.files[0])}
-                                className='hidden'
-                                id='GifUploader'
-                                data-max-size='5120'
-                                accept='.gif'
-                                />
-                                <BsFiletypeGif/>
-                                <span>Gif</span>
-                                </label>
+                               
 
                               <div>
                               {
