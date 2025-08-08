@@ -27,37 +27,48 @@ const Home = () => {
     const { register,reset, handleSubmit, formState: { errors } } = useForm();
 
 
-   const handlePostSubmit =async(data)=> {
-      console.log("Post submit data:", data); // ✅ check if this prints
-    setPosting(true);
-    setErrMsg("");
-    try {
-      const uri = file && (await handleFileUpload(file));
-       const newData = uri ? {...data, image: uri } : data;
+ const handlePostSubmit = async (data) => {
+  setPosting(true);
+  setErrMsg("");
 
-       const res = await apiRequest({
-        url: "/posts/create-post",
-        data: newData,
-        token: user?.token,
-        method: "POST",
-       });
-       if(res?.status === "failed"){
-        setErrMsg(res);
-       }else {
-        reset({
-          description: "",
-        });
-        setFile(null);
-        setErrMsg("");
-        await fetchPost();
-       }
-       setPosting(false);
-       
-    } catch (error) {
-      console.log(error);
-      setPosting(false);
+  try {
+    let uploadedUrl = null;
+    let resourceType = null;
+
+    if (file) {
+      uploadedUrl = await handleFileUpload(file);
+      resourceType = file.type.startsWith("video") ? "video" : "image";
     }
-  };
+
+    const newData = {
+      ...data,
+      ...(resourceType === "video"
+        ? { video: uploadedUrl }
+        : { image: uploadedUrl }),
+    };
+
+    const res = await apiRequest({
+      url: "/posts/create-post",
+      data: newData,
+      token: user?.token,
+      method: "POST",
+    });
+
+    if (res?.status === "failed") {
+      setErrMsg(res);
+    } else {
+      reset({ description: "" });
+      setFile(null);
+      setErrMsg("");
+      await fetchPost();
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setPosting(false);
+  }
+};
+
 
   const fetchPost = async()=>{
         await fetchPosts(user?.token, dispatch);

@@ -5,7 +5,7 @@ import Users from "../models/userModel.js";
 export const createPost = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
-    const { description, image } = req.body;
+    const { description, image,video } = req.body;
 
     if (!description) {
       next("You must provide a description");
@@ -16,6 +16,7 @@ export const createPost = async (req, res, next) => {
       userId,
       description,
       image,
+      video
     });
 
     res.status(200).json({

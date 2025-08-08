@@ -2,19 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-
 ::-webkit-scrollbar {
   display: none;
-   -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
 
-.topbar{
-position: sticky;
-top: 0px;
-z-index: 49;
+.topbar {
+  position: sticky;
+  top: 0px;
+  z-index: 49;
 }
-
 
 .dots-container {
   display: flex;
@@ -74,22 +72,32 @@ z-index: 49;
   :root {
     --color-bg: 227 227 227;
     --color-primary: 255 255 255;
-    --color-secondary:255 255 255;
+    --color-secondary: 255 255 255;
     --color-ascent1: 0 0 0;
     --color-ascent2: 89 91 100;
-    --color-blue:181 126 220;
+    --color-blue: 181 126 220;
     --color-white: 255 255 255;
-
   }
-  /* //15 23 42  21 30 49*/
+
   [data-theme="dark"] {
-     --color-bg: 12 12 12;
-     --color-primary: 31 31 31;
+    --color-bg: 12 12 12;
+    --color-primary: 31 31 31;
     --color-secondary: 47 45 48;
     --color-ascent1: 255 255 255;
     --color-ascent2: 164 161 162;
-    --color-blue:181 126 220;
-    /* //16 176 255; */
+    --color-blue: 181 126 220;
     --color-white: 255 255 255;
+  }
+
+  /* Hide fullscreen, stop, download, and picture-in-picture buttons from native video controls (Chromium/WebKit) */
+  video::-webkit-media-controls-fullscreen-button,
+  video::-webkit-media-controls-stop-button,
+  video::-webkit-media-controls-download-button,
+  video::-webkit-media-controls-picture-in-picture-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 }

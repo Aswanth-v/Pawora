@@ -192,6 +192,7 @@ const PostCard=({post,user,deletePost,likePost}) =>{
        alt={post?.userId?.firstName}
        className='w-14 h-14 object-cover rounded-full'
         />
+        
       </Link>
       
       <div className='w-full flex justify-between'>
@@ -230,15 +231,18 @@ const PostCard=({post,user,deletePost,likePost}) =>{
       )
     )}
   </p>
-  {
-    post?.image && (
-      <img
-      src={post?.image}
-      alt="post image"
-      className='w-full mt-2 rounded-lg'
-      />
-    )
-  }
+  {post?.image ? (
+  <img
+    src={post.image}
+    alt="post image"
+    className="w-full mt-2 rounded-lg"
+  />
+) : post?.video ? (
+  <video
+  src={post.video}
+/>
+) : null}
+
 </div>
     <div className='mt-4 flex justify-between items-center px-3 py-2 text-ascent text-base border-t border-[#66666645]'>
       <p className='flex gap-2 items-center text-base cursor-pointer text-ascent-2'

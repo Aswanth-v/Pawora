@@ -31,9 +31,12 @@ export const handleFileUpload = async (uploadFile) => {
   formData.append("file", uploadFile);
   formData.append("upload_preset", "Stray-Animals");
 
+  // Detect type (image / video) from file object
+  const resourceType = uploadFile.type.startsWith("video") ? "video" : "image";
+
   try {
     const response = await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_ID}/image/upload`,
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_ID}/${resourceType}/upload`,
       formData
     );
     return response.data.secure_url;
@@ -41,6 +44,7 @@ export const handleFileUpload = async (uploadFile) => {
     console.error("Cloudinary Upload Error:", error.response?.data || error.message);
   }
 };
+
 
 export const fetchPosts = async (token,dispatch,uri,data) => {
     try {
