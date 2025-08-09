@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const DonationPg = () => {
   const [showForm, setShowForm] = useState(false);
   const [amount, setAmount] = useState('');
+    const [totalDonation, setTotalDonation] = useState(0); // <-- NEW STATE
   useEffect(() => {
   if (showForm) {
     const timer = setTimeout(() => {
@@ -17,6 +18,24 @@ const DonationPg = () => {
     return () => clearTimeout(timer); // clear timer on unmount or re-render
   }
 }, [showForm]);
+
+
+  useEffect(() => {
+    const fetchTotalDonation = async () => {
+      try {
+        const res = await fetch('http://localhost:8800/donationAm', {
+          method: 'GET', // you used POST in router, so match that
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        setTotalDonation(data.total_transaction_amount || 0);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchTotalDonation();
+  }, []);
+
 
   const handlePay = async (e) => {
     e.preventDefault();
@@ -120,17 +139,20 @@ const DonationPg = () => {
         </div>
       </section>
 
-      {/* Donation Progress Section */}
-     { /*<section className='bg-yellow-500 text-black p-6 rounded-lg mb-10'>
-        <div className='flex items-center justify-between mb-2 text-lg font-semibold'>
-          <span>Collection:{amount}</span>
-        </div>
-        <div className='w-full bg-gray-200 rounded-full h-3'>
-          <div className='bg-black h-3 rounded-full' style={{ width: '80%' }}></div>
-        </div>
-      </section>
-    *
-     }
+     {/* ✅ Donation Progress Section */}
+    <div>
+        <section className='bg-yellow-500 text-black p-6 rounded-lg mb-10'>
+          <div className='flex items-center justify-between mb-2 text-lg font-semibold'>
+         <span>Collection: ₹{(totalDonation / 100).toLocaleString()}</span>
+          </div>
+          <div className='w-full bg-gray-200 rounded-full h-3'>
+            <div
+              className='bg-black h-3 rounded-full'
+              style={{ width: `${Math.min((totalDonation / 100000) * 100, 100)}%` }} // Example goal: ₹1,00,000
+            ></div>
+          </div>
+        </section>
+      </div>
 
     {/* Right side: Image */}
     </div>
