@@ -464,3 +464,18 @@ export const donation = async (req, res) => {
   }
 };
 
+export const donationAmount = async (req, res) => {
+  try {
+    const result = await Transaction.aggregate([
+      { $group: { _id: null, total_transaction_amount: { $sum: "$amount" } } }
+    ]);
+
+    const totalAmount = result[0]?.total_transaction_amount || 0;
+    console.log(totalAmount);
+
+    res.json({ total_transaction_amount: totalAmount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};

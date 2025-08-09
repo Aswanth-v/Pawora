@@ -16,7 +16,7 @@ let transporter=nodemailer.createTransport({
     }
 })
 export const sendVerificationEmail = async (user, res) => {
-  const { _id, email, lastName } = user;
+  const { _id, email, firstName } = user;
 
   const token = _id + uuidv4();
  const link = APP_URL + "users/verify/" + _id + "/" + token;
