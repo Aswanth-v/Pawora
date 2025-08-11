@@ -97,52 +97,57 @@ const DonationPg = () => {
       <ToastContainer />
       {/* Left side: Content */}
       <div
-        className="w-full sm:w-1/2 h-full text-white px-5 lg:px-10 2xl:px-40 overflow-y-auto"
+        className="w-full sm:w-1/2 h-full text-white px-5 lg:px-10 2xl:px-40 overflow-y-auto align-text-top "
         style={{ backgroundColor: "black" }}
-      >
+      > 
         <section className="flex flex-col gap-10 py-10">
           <div>
-            <p className="mb-6 text-lg text-gray-300">
-              Every day, countless stray animals wander the streets, abandoned,
-              hungry, and exposed to danger...
-            </p>
+           <p className="mb-6 text-lg text-gray-300">
+  Every day, countless stray animals struggle to survive—searching for food,
+  shelter, and a little kindness. Your support can be the difference between
+  a life of suffering and a chance at safety, care, and love.
+</p>
 
             {!showForm ? (
-              <div className="flex gap-4">
-                <button
-                  className="text-ascent-2 font-bold py-2 px-6 rounded"
-                  onClick={() => setShowForm(true)}
-                >
-                  DONATE FOR THE CAUSE
-                </button>
-                <button className="border border-white py-2 px-6 rounded hover:bg-white hover:text-black">
-                  LEARN MORE
-                </button>
-              </div>
+             <div className="flex flex-wrap gap-4">
+  <button
+    onClick={() => setShowForm(true)}
+    className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold py-2.5 px-8 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.05] transition-all duration-300"
+  >
+    ❤️ DONATE
+  </button>
+  <button
+    className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold py-2.5 px-8 rounded-full shadow-lg hover:shadow-xl hover:scale-[1.05] transition-all duration-300"
+  >
+    ℹ️ LEARN MORE
+  </button>
+</div>
+
             ) : (
-              <form
-                onSubmit={handlePay}
-                className="bg-[#967BB6] p-4 rounded shadow text-black mt-4 space-y-4"
-              >
-                <label className="block font-medium">
-                  Enter Donation Amount (₹):
-                </label>
-                <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="e.g. 500"
-                  min="1"
-                  className="w-full px-3 py-2 border rounded bg-primary"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 py-2 rounded hover:bg-blue-700"
-                >
-                  Pay Now
-                </button>
-              </form>
+             <form
+  onSubmit={handlePay}
+  className="bg-gradient-to-br from-[#967BB6] to-purple-700 p-6 rounded-xl shadow-lg text-white mt-6 space-y-5"
+>
+  <label className="block font-semibold text-lg tracking-wide">
+    Enter Donation Amount (₹):
+  </label>
+  <input
+    type="number"
+    value={amount}
+    onChange={(e) => setAmount(e.target.value)}
+    placeholder="e.g. 500"
+    min="1"
+    className="w-full px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent bg-white/10 placeholder-white/60 text-white"
+    required
+  />
+  <button
+    type="submit"
+    className="w-full bg-blue-500 hover:bg-blue-600 py-2.5 rounded-lg text-lg font-semibold tracking-wide shadow-md transition-all duration-200 hover:scale-[1.02]"
+  >
+    💖 Pay Now
+  </button>
+</form>
+
             )}
           </div>
         </section>
