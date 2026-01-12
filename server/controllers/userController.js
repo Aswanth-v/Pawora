@@ -91,7 +91,7 @@ export const requestPasswordReset = async (req, res) => {
       });
     }
 
-    const existingRequest = await PasswordReset.findOne({ email });
+    const existingRequest = await passwordReset.findOne({ email });
     if (existingRequest) {
       if (existingRequest.expiresAt > Date.now()) {
         return res.status(201).json({
@@ -99,7 +99,7 @@ export const requestPasswordReset = async (req, res) => {
           message: "Reset password link has already been sent tp your email.",
         });
       }
-      await PasswordReset.findOneAndDelete({ email });
+      await passwordReset.findOneAndDelete({ email });
     }
     await resetPasswordLink(user, res);
   } catch (error) {
@@ -162,7 +162,7 @@ export const changePassword = async (req, res, next) => {
     );
 
     if (user) {
-      await PasswordReset.findOneAndDelete({ userId });
+      await passwordReset.findOneAndDelete({ userId });
 
       res.status(200).json({
         ok: true,
