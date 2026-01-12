@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Verification from "../models/emailVerification.js";
 import Users from "../models/userModel.js";
 import { compareString, createJWT, hashString } from "../utils/index.js";
-import PasswordReset from "../models/PasswordReset.js";
+import passwordReset from "../models/PasswordReset.js";
 import { resetPasswordLink } from "../utils/sendEmail.js";
 import dotenv from "dotenv";
 import FriendRequest from "../models/friendRequest.js";
@@ -120,7 +120,7 @@ export const resetPassword = async (req, res) => {
       res.redirect(`/users/resetpassword?status=error&message=${message}`);
     }
 
-    const resetPassword = await PasswordReset.findOne({ userId });
+    const resetPassword = await passwordReset.findOne({ userId });
 
     if (!resetPassword) {
       const message = "Invalid password reset link. Try again";
