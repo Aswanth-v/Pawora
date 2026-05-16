@@ -26,10 +26,10 @@ const uri="/posts/get-user-post/"+id
   setUserInfo(res);
 }, [user?.token, id]);
 
-  const getPosts = async () =>{
-    await fetchPosts(user.token, dispatch, uri);
-    setLoading(false);
-  }
+ const getPosts = useCallback(async () => {
+  await fetchPosts(user.token, dispatch, uri);
+  setLoading(false);
+}, [user?.token, dispatch, uri]);
 
   const handleDelete = async (id) => {
     await deletePost(id, user.token);
