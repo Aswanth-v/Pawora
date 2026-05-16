@@ -10,8 +10,8 @@ const ResetPassword=()=> {
     const {
       register,
       handleSubmit,
-      getValues,
-      watch,
+     // getValues,
+      //watch,
       formState:{ errors },
     } =useForm({
       mode:'onChange'
