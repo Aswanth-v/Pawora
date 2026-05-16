@@ -48,7 +48,7 @@ function Register() {
 
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   return (
     <div className="bg-bgColor w-full h-[100vh] flex items-center justify-center p-6">
@@ -137,7 +137,7 @@ function Register() {
                 validate: (value) => {
                   const { password } = getValues();
 
-                  if (password != value) {
+                  if (password !== value) {
                     return "password do no match";
                   }
                 },
@@ -156,7 +156,7 @@ function Register() {
             {errMsg?.message && (
               <span
                 className={`text-sm ${
-                  errMsg?.status == "failed"
+                  errMsg?.status === "failed"
                     ? "text-[#f64949fe]"
                     : "text-[#2ba150fe]"
                 } mt-0.5`}
@@ -192,7 +192,7 @@ function Register() {
           <div className="relative w-full flex flex-col items-center justify-center">
             <img
               src={BgImage}
-              alt="Bg Image"
+              alt="Bg picture"
               className="w-48 2xl:w-64 h-48 2xl:h-64 rounded-full object-cover"
             />
             <div className="absolute flex items-center gap-1 bg-white right-3 top-10 py-1.5 px-3 rounded-full">

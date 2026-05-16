@@ -80,7 +80,8 @@ export const likePost = async({uri,token}) => {
 
 export const deletePost = async (id,token) =>{
     try {
-        const res = await apiRequest({
+        
+        await apiRequest({
             url:"/posts/"+id,
             token:token,
             method:"DELETE"
@@ -112,7 +113,7 @@ export const getUserInfo = async(token,id) => {
 
 export const sendFriendRequest = async(token,id) => {
     try {
-        const res = await apiRequest({
+        await apiRequest({
             url:"/users/friend-request",
             token:token,
             method:"POST",
@@ -126,7 +127,7 @@ export const sendFriendRequest = async(token,id) => {
 
 export const viewUserProfile = async (token,id) => {
     try {
-        const res = await apiRequest({
+        await apiRequest({
             url:"/users/profile-view",
             token:token,
             method:"POST",

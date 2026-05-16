@@ -106,7 +106,7 @@ function Login() {
           {
             errMsg?.message && (
               <span className={`text-sm ${
-                errMsg?.status =="failed"? "text-[#f64949fe]" :"text-[#2ba150fe]"
+                errMsg?.status==="failed"? "text-[#f64949fe]" :"text-[#2ba150fe]"
               } mt-0.5`}>
 
                 {errMsg?.message}
@@ -139,7 +139,7 @@ function Login() {
 
           <img
           src={BgImage}
-          alt='Bg Image'
+          alt='background picture'
           className='w-48 2xl:w-64 h-48 2xl:h-64 rounded-full object-cover'
           />
           <div className="absolute flex items-center gap-1 bg-white right-3 top-10 py-1.5 px-3 rounded-full">
