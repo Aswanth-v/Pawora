@@ -8,8 +8,8 @@ import Loading from "./Loading";
 import CustomButton from "./CustomButton";
 import {MdOutlineDeleteOutline} from 'react-icons/md';
 import { useForm } from 'react-hook-form';
-import Donation from './Donation';
-import { postComments } from '../assets/data';
+//import Donation from './Donation';
+//import { postComments } from '../assets/data';
 import { apiRequest } from '../utils';
 
 const getPostComments=async (id)=>{

@@ -43,7 +43,7 @@ const uri="/posts/get-user-post/"+id
     setLoading(true);
     getUser();
     getPosts();
-  },[id]);
+  },[id,getUser, getPosts]);
   return (
     <>
       <div className='home w-full px-0 lg:px:10  2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden'>

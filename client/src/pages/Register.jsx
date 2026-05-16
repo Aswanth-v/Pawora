@@ -7,7 +7,7 @@ import { BsShare } from "react-icons/bs";
 import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { TextInput, Loading, CustomButton } from "../components";
-import { BgImage, NoProfile } from "../assets";
+import { BgImage} from "../assets";
 import { apiRequest } from "../utils";
 
 function Register() {

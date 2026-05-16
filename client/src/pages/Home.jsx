@@ -4,7 +4,7 @@ import {CardProfile,CustomButton,FriendsCard, Loading, TextInput, TopBar,PostCar
 
 import { NoProfile } from '../assets';
 import { Link } from 'react-router-dom';
-import { BsPersonFillAdd,BsFiletypeGif } from 'react-icons/bs';
+//import { BsPersonFillAdd,BsFiletypeGif } from 'react-icons/bs';
 import { BiImage, BiSolidVideo } from 'react-icons/bi';
 import { apiRequest, deletePost, fetchPosts, getUserInfo, handleFileUpload, likePost, sendFriendRequest } from '../utils';
 import { useForm } from 'react-hook-form';

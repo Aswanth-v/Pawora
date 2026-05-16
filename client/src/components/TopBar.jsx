@@ -21,7 +21,6 @@ const TopBar = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
   // Toggle theme

@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CountUp from "../components/Countup";
 import { Link } from "react-router-dom";
-import TopBar from "../components/TopBar";
+//import TopBar from "../components/TopBar";
 const DonationPg = () => {
   const [showForm, setShowForm] = useState(false);
   const [amount, setAmount] = useState("");
