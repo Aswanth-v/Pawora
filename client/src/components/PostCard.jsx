@@ -124,7 +124,7 @@ const onSubmit = async (data) => {
       <div className='w-full flex items-center gap-2 py-4'>
         <img
           src={user?.profileUrl ?? NoProfile}
-          alt='User Image'
+          alt='profile picture of user'
           className='w-10 h-10 rounded-full object-cover'
         />
 
@@ -234,7 +234,7 @@ const PostCard=({post,user,deletePost,likePost}) =>{
   {post?.image ? (
   <img
     src={post.image}
-    alt="post image"
+    alt="post picture of user"
     className="w-full mt-2 rounded-lg"
   />
 ) : post?.video ? (
@@ -306,7 +306,7 @@ const PostCard=({post,user,deletePost,likePost}) =>{
                   <p className='font-medium text-base text-ascent-1'>{comment?.userId?.firstName} {comment?.userId?.lastName}</p>
                   </Link>
                   <span className='text-ascent-2 text-sm'>
-                    {moment(comment ?.createdAt ?? "2023-05-25").fromNow()}
+                    {moment(comment?.createdAt ?? "2023-05-25").fromNow()}
                   </span>
                 </div>
                 </div>

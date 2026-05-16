@@ -114,7 +114,7 @@ const Home = () => {
   }
   const handleFriendRequest = async(id)=>{
     try{
-      const res=await sendFriendRequest(user.token,id)
+       await sendFriendRequest(user.token,id)
       await fetchSuggestedFriends()
 
     }catch(error){
@@ -124,7 +124,7 @@ const Home = () => {
   }
   const acceptFriendRequest = async(id,status)=>{
     try{
-      const res=await apiRequest({
+      await apiRequest({
         url:"/users/accept-request",
         token:user?.token,
         method:"POST",
@@ -167,7 +167,7 @@ const Home = () => {
                             <div className='w-full flex items-center gap-2 py-4 border-b border-[#66666645]'>
                             <img 
                                     src={user?.profileUrl ?? NoProfile} 
-                                    alt='user Image' 
+                                    alt='images of user' 
                                     className='w-14 h-14 object-cover rounded-full'
                                     />
                                     <TextInput
