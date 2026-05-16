@@ -147,7 +147,7 @@ const Home = () => {
     fetchPost();
     fetchFriendRequests();
     fetchSuggestedFriends();
-  }, []);
+  }, [getUser, fetchPost, fetchFriendRequests, fetchSuggestedFriends]);
 
 
     return (
