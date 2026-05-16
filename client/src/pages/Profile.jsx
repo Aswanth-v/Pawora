@@ -21,11 +21,11 @@ const Profile = () => {
 const uri="/posts/get-user-post/"+id
 
 
- const getUser = async () => {
-    const res = await getUserInfo(user?.token, id);
-    
-    setUserInfo(res);
-  };
+ const getUser = useCallback(async () => {
+  const res = await getUserInfo(user?.token, id);
+  setUserInfo(res);
+}, [user?.token, id]);
+
   const getPosts = async () =>{
     await fetchPosts(user.token, dispatch, uri);
     setLoading(false);
