@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import { TbDog } from "react-icons/tb";
 import { BsShare } from "react-icons/bs";
 import { AiOutlineInteraction } from "react-icons/ai";
@@ -192,7 +192,7 @@ function Register() {
           <div className="relative w-full flex flex-col items-center justify-center">
             <img
               src={BgImage}
-              alt="Bg picture"
+              alt="Bg profile"
               className="w-48 2xl:w-64 h-48 2xl:h-64 rounded-full object-cover"
             />
             <div className="absolute flex items-center gap-1 bg-white right-3 top-10 py-1.5 px-3 rounded-full">
