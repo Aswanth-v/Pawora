@@ -139,7 +139,7 @@ function Login() {
 
           <img
           src={BgImage}
-          alt='background picture'
+          alt='background profile'
           className='w-48 2xl:w-64 h-48 2xl:h-64 rounded-full object-cover'
           />
           <div className="absolute flex items-center gap-1 bg-white right-3 top-10 py-1.5 px-3 rounded-full">

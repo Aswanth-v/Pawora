@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useCallback } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import {CardProfile,CustomButton,FriendsCard, Loading, TextInput, TopBar,PostCard, EditProfile } from '../components';
 
@@ -70,11 +70,16 @@ const Home = () => {
 };
 
 
-  const fetchPost = async()=>{
-        await fetchPosts(user?.token, dispatch);
+  // const fetchPost = async()=>{
+  //       await fetchPosts(user?.token, dispatch);
 
-    setLoading(false);
-  }
+  //   setLoading(false);
+  // }
+const fetchPost=useCallback(async()=>{
+  await fetchPosts(user?.token,dispatch)
+  setLoading(false)
+},[user?.token,dispatch])
+
   const handleLikePost = async(uri)=>{
     await likePost({uri:uri,token:user?.token})
     await fetchPost()
@@ -83,35 +88,32 @@ const Home = () => {
     await deletePost(id,user.token)
     await fetchPost()
   }
-  const fetchFriendRequests = async()=>{
-   try{
-    const res=await apiRequest({
-       url:"/users/get-friend-request",
-    token: user?.token,
-    method:"POST"
-    })
-    setFriendRequest(res?.data)
-   }catch(error){
-    console.log(error)
-    
-   }
-
+const fetchFriendRequests = useCallback(async () => {
+  try {
+    const res = await apiRequest({
+      url: "/users/get-friend-request",
+      token: user?.token,
+      method: "POST",
+    });
+    setFriendRequest(res?.data);
+  } catch (error) {
+    console.log(error);
   }
+}, [user?.token]);
 
-  const fetchSuggestedFriends = async()=>{
-    try{
-      const res =await apiRequest({
-        url:"/users/suggested-friends",
-        token:user?.token,
-        method:"POST"
-      })
-      
-      setSuggestedFriends(res?.data)
-    }catch(error){
-      console.log(error);
-      
-    }
+ const fetchSuggestedFriends = useCallback(async () => {
+  try {
+    const res = await apiRequest({
+      url: "/users/suggested-friends",
+      token: user?.token,
+      method: "POST",
+    });
+
+    setSuggestedFriends(res?.data);
+  } catch (error) {
+    console.log(error);
   }
+}, [user?.token]);
   const handleFriendRequest = async(id)=>{
     try{
        await sendFriendRequest(user.token,id)
@@ -135,11 +137,11 @@ const Home = () => {
       
     }
   }
-  const getUser = async()=>{
-    const res=await getUserInfo(user?.token)
-    const newData={token:user?.token, ...res}
-    dispatch(UserLogin(newData))
-  }
+  const getUser = useCallback(async () => {
+  const res = await getUserInfo(user?.token);
+  const newData = { token: user?.token, ...res };
+  dispatch(UserLogin(newData));
+}, [user?.token, dispatch]);
 
  useEffect(() => {
     setLoading(true);

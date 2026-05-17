@@ -124,7 +124,7 @@ const onSubmit = async (data) => {
       <div className='w-full flex items-center gap-2 py-4'>
         <img
           src={user?.profileUrl ?? NoProfile}
-          alt='profile picture of user'
+          alt='user profile'
           className='w-10 h-10 rounded-full object-cover'
         />
 
@@ -234,7 +234,7 @@ const PostCard=({post,user,deletePost,likePost}) =>{
   {post?.image ? (
   <img
     src={post.image}
-    alt="post picture of user"
+    alt="post profile"
     className="w-full mt-2 rounded-lg"
   />
 ) : post?.video ? (
