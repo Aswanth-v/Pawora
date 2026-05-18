@@ -6,9 +6,7 @@ The project demonstrates full-stack application development including authentica
 
 ## 🚀 Live Demo
 
-**Frontend:** https://pawora-aswa.vercel.app/
-
-**Backend API:** https://paworaa.onrender.com
+Live: https://pawora-aswa.vercel.app/
 
 ---
 
