@@ -27,6 +27,7 @@ The project demonstrates full-stack application development including authentica
 - Friend request system
 - Suggested friends
 - Accept friend requests
+- Post comments
 - View user profiles
 
 ### Media Upload
