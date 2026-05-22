@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CountUp from "../components/Countup";
 import { Link } from "react-router-dom";
+
 //import TopBar from "../components/TopBar";
 const DonationPg = () => {
   const [showForm, setShowForm] = useState(false);
@@ -22,9 +23,11 @@ const DonationPg = () => {
 
   // 🔹 Reusable fetch function
   const fetchTotalDonation = async () => {
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     try {
-      const res = await fetch("http://localhost:8800/donationAm");
-      const data = await res.json();
+     // const res = await fetch("http://localhost:8800/donationAm");
+       const res = await fetch(`${BACKEND_URL}/donationAm`);
+    const data = await res.json();
       setTotalDonation(data.total_transaction_amount || 0);
     } catch (err) {
       console.error(err);
