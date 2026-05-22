@@ -54,7 +54,8 @@ const DonationPg = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8800/donation", {
+      //const response = await fetch("http://localhost:8800/donation", {
+      const response = await fetch(`${BACKEND_URL}/donation`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(donationData),
